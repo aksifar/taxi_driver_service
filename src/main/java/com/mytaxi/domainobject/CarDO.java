@@ -4,10 +4,13 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
@@ -16,7 +19,11 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.mytaxi.domainvalue.EngineType;
-
+@Entity
+@Table(
+	    name = "car",
+	    uniqueConstraints = @UniqueConstraint(name = "uc_licensePlate", columnNames = {"licensePlate"})
+	)
 public class CarDO {
 
 	@Id
@@ -44,7 +51,7 @@ public class CarDO {
 	private BigDecimal rating;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "engine_type")
 	private EngineType engineType;
 
 	@Column(nullable = false)
@@ -52,7 +59,7 @@ public class CarDO {
 
 	@Column(nullable = false)
 	private Boolean selected;
-
+	
 	public CarDO() {
 	}
 
@@ -63,6 +70,7 @@ public class CarDO {
 		this.engineType = engineType;
 		this.convertible = false;
 		this.selected = false;
+		this.rating = new BigDecimal(3.0);
 	}
 
 	public Boolean getSelected() {
