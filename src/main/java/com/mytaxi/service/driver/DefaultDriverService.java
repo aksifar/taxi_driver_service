@@ -31,8 +31,8 @@ public class DefaultDriverService implements DriverService
 
     @Autowired
     CarService carService;
-    private final DriverRepository driverRepository;
 
+    private final DriverRepository driverRepository;
 
     public DefaultDriverService(final DriverRepository driverRepository)
     {
@@ -177,5 +177,13 @@ public class DefaultDriverService implements DriverService
 		carService.releaseCar(carDO);
 		driverDO.setCar(null);
 		driverRepository.save(driverDO);
+	}
+
+	@Override
+	public List<DriverDO> search(String userName, boolean onlineStatus, boolean deleted) {
+		if(onlineStatus)
+			return driverRepository.searchDrivers(userName, OnlineStatus.ONLINE.toString(), deleted);
+		else
+			return driverRepository.searchDrivers(userName, OnlineStatus.OFFLINE.toString(), deleted);
 	}
 }

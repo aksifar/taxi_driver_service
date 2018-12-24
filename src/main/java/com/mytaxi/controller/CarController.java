@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mytaxi.controller.mapper.CarMapper;
 import com.mytaxi.datatransferobject.CarDTO;
 import com.mytaxi.domainobject.CarDO;
+import com.mytaxi.domainvalue.EngineType;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
 import com.mytaxi.service.car.CarService;
@@ -63,10 +64,28 @@ public class CarController {
     }
 	
 	@GetMapping
-	public List<CarDTO> findCars(@RequestParam boolean selected){
-		return CarMapper.makeCarDTOList(carService.find(selected));
+	public List<CarDTO> searchCars(
+			@RequestParam(value = "licensePlate", required = false) String licensePlate,
+			@RequestParam(value = "engineType", required = false) EngineType engineType, 
+			@RequestParam(value = "make", required = false) String make,
+			@RequestParam(value = "selected", required = false) String selectedString)
+	{
+		if(isValid(selectedString))
+		{
+			boolean selected =  Boolean.parseBoolean(selectedString);
+			return CarMapper.makeCarDTOList(carService.search(licensePlate, engineType, make, selected));
+		}
+		else
+		{
+			return CarMapper.makeCarDTOList(carService.search(licensePlate, engineType, make));
+		}
 	}
 	 
-//  updateCar()
-//update rating
+	private boolean isValid(String param)
+	{
+		if(null == param || param.isEmpty())
+			return false;
+		
+		return true;
+	}
 }

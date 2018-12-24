@@ -28,6 +28,7 @@ public interface DriverService
 	void releaseCar(long driverId) throws EntityNotFoundException, DriverHasNoCarAssignedException, ConstraintsViolationException;
 
 	CarDO getReservedCar(long driverId) throws EntityNotFoundException, DriverHasNoCarAssignedException;
-	
+
+	List<DriverDO> search(String userName, boolean onlineStatus, boolean deleted);
 
 }

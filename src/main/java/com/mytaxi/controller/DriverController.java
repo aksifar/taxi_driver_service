@@ -77,7 +77,7 @@ public class DriverController
         driverService.updateLocation(driverId, longitude, latitude);
     }
 
-    @GetMapping
+    @GetMapping(params="onlineStatus")
     public List<DriverDTO> findDrivers(@RequestParam OnlineStatus onlineStatus)
     {
         return DriverMapper.makeDriverDTOList(driverService.find(onlineStatus));
@@ -99,4 +99,12 @@ public class DriverController
 			throws EntityNotFoundException, DriverHasNoCarAssignedException, ConstraintsViolationException {
 		driverService.releaseCar(driverId);
 	}
+    
+    @GetMapping
+    public List<DriverDTO> searchDrivers(@RequestParam(value = "username", required = false) String userName,
+    		@RequestParam(value = "online", required = false) boolean online,
+    		@RequestParam(value = "deleted",required = false) boolean deleted){
+    	
+    	return DriverMapper.makeDriverDTOList(driverService.search(userName, online, deleted));
+    }
 }
