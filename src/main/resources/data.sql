@@ -25,6 +25,7 @@ insert into driver (id, date_created, deleted, online_status, password, username
 insert into driver (id, date_created, deleted, online_status, password, username) values (6, now(), false, 'ONLINE',
 'driver06pw', 'driver06');
 
+
 -- Create 1 OFFLINE driver with coordinate(longitude=9.5&latitude=55.954)
 
 insert into driver (id, coordinate, date_coordinate_updated, date_created, deleted, online_status, password, username)
@@ -54,3 +55,7 @@ insert into car (id, date_created, license_plate, seat_count, convertible, ratin
 insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type ,make, selected) values (5, now(), 'BKW 1004', 6, false, 3.0, 'GAS', 'BENZ', false);
 
 insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type ,make, selected) values (6, now(), 'BKW 1005', 4, true, 5.0, 'ELECTRIC', 'AUDI', false);
+
+-- Create 1 ONLINE driver with a car
+insert into driver (id, date_created, deleted, online_status, password, username, car_id) values (9, now(), false, 'ONLINE',
+'driver09pw', 'driver09', 2);
