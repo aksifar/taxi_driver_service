@@ -56,7 +56,7 @@ public class CarController {
     }
 	
 	@PutMapping("/{carId}")
-    public void updateSelected(
+    public void updateCarAvailability(
         @PathVariable long carId, @RequestParam boolean selected)
         throws EntityNotFoundException
     {
