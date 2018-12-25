@@ -101,7 +101,8 @@ public class DriverController
 	}
     
     @GetMapping
-    public List<DriverDTO> searchDrivers(@RequestParam(value = "username", required = false) String userName,
+    public List<DriverDTO> searchDrivers(
+    		@RequestParam(value = "username", required = false) String userName,
     		@RequestParam(value = "online", required = false) boolean online,
     		@RequestParam(value = "deleted",required = false) boolean deleted){
     	
